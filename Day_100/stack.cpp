@@ -3,9 +3,9 @@ using namespace std;
 
 class Node
 {
-
 private:
     int data{0};
+
     Node *next{nullptr};
 
 public:
@@ -21,27 +21,20 @@ public:
     {
         this->data = data;
     }
+
     int getData()
     {
-
         return this->data;
     }
+
     Node *getNext()
     {
         return this->next;
     }
+
     void setNext(Node *next)
     {
         this->next = next;
-    }
-
-    void print()
-    {
-        cout << "Address of Current Node: " << this;
-
-        cout << "\tData: " << this->data;
-
-        cout << "\tAddress of Next Node: " << this->next << endl;
     }
 };
 
@@ -54,89 +47,71 @@ private:
 public:
     Stack() = default;
 
-    bool isEmpty()
+    void push(int data)
     {
-        return this->top == nullptr;
-    }
-
-    void push(int value)
-    {
-        Node *newNode = new Node(value);
-
-        if (isEmpty())
+        Node *newNode = new Node(data);
+        if (top == nullptr)
         {
-            this->top = newNode;
-            this->size++;
+            top = newNode;
+            size++;
         }
         else
         {
             newNode->setNext(top);
             top = newNode;
-            this->size++;
+            size++;
         }
     }
 
     int pop()
     {
-        if (isEmpty())
-        {
-            cout << "Nothing to pop!\n";
-            return -1;
-        }
-        else
-        {
-            Node *temp = top;
-            top = top->getNext();
-            int val = temp->getData();
-            delete temp;
-            this->size--;
-            return val;
-        }
+        int value = top->getData();
+        Node *temp = top->getNext();
+        delete top;
+        top = temp;
+        return value;
     }
 
-    void print()
+    void display()
     {
-        Node *temp = this->top;
+        Node *temp = top;
         cout << "[ ";
         while (temp != nullptr)
         {
-            cout << temp->getData() << (temp->getNext() != nullptr ? " , " : "");
+            cout << temp->getData() << " ";
             temp = temp->getNext();
         }
-        cout << " ]\n";
-    }
-
-    void clear()
-    {
-        Node *temp = this->top;
-        Node *secondNode = nullptr;
-        while (temp != nullptr)
-        {
-            secondNode = temp->getNext();
-            delete temp;
-            temp = secondNode;
-        }
-        this->top = nullptr;
-        this->size = 0;
-    }
-
-    ~Stack()
-    {
-        clear();
+        cout << " ]" << endl;
     }
 };
 
 int main()
 {
-    Stack s;
-    s.print();
-    s.push(12);
-    s.push(13);
-    s.push(14);
-    s.push(15);
-    s.print();
-    s.clear();
-    s.print();
 
+    Stack s1;
+    s1.display();
+    s1.push(4);
+    s1.push(5);
+    s1.push(7);
+    s1.display();
+    s1.push(9);
+    s1.push(20);
+    s1.display();
+    int v = s1.pop();
+    cout << "returned value " << v << endl;
+    s1.display();
+    s1.pop();
+    v = s1.pop();
+    cout << "returned value " << v << endl;
+    s1.pop();
+    v = s1.pop();
+    cout << "returned value " << v << endl;
+    s1.pop();
+    v = s1.pop();
+    cout << "returned value " << v << endl;
+    s1.pop();
+    v = s1.pop();
+    cout << "returned value " << v << endl;
+    s1.display();
     return 0;
 }

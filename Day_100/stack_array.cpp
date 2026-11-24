@@ -17,10 +17,6 @@ public:
         this->stackArray = new int[this->capacity];
     }
 
-    // prevent shallow-copy double-free
-    Stack(const Stack &) = delete;
-    Stack &operator=(const Stack &) = delete;
-
     bool isEmpty()
     {
         return this->top == -1;
